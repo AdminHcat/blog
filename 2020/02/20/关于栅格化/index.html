@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=66548893"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?3ae650be48a42a467373152bac68584c"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>关于栅格化 | Hcat&#39;s Blog | 若非生活所迫，谁愿一身才华</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="">
+    <meta name="description" content="栅格化Grid是将向量图形格式表示的图像转换成位图以用于显示器或者打印机输出的过程。 栅（shan）格化，是PS中的一个专业术语，栅格即像素，栅格化即将矢量图形转化为位图（栅格图像）。最基础的栅格化算法将多边形表示的三维场景渲染到二维表面。 综述总体上来说，栅格化这个术语可以用于任何将向量图形转换成位图的过程。 在通常的应用中，这个术语用来表示在计算机上显示三维形状的流行渲染算法。栅格化是生成实时">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于栅格化">
+<meta property="og:url" content="http://blog.hcat.work/2020/02/20/%E5%85%B3%E4%BA%8E%E6%A0%85%E6%A0%BC%E5%8C%96/index.html">
+<meta property="og:site_name" content="Hcat&#39;s Blog">
+<meta property="og:description" content="栅格化Grid是将向量图形格式表示的图像转换成位图以用于显示器或者打印机输出的过程。 栅（shan）格化，是PS中的一个专业术语，栅格即像素，栅格化即将矢量图形转化为位图（栅格图像）。最基础的栅格化算法将多边形表示的三维场景渲染到二维表面。 综述总体上来说，栅格化这个术语可以用于任何将向量图形转换成位图的过程。 在通常的应用中，这个术语用来表示在计算机上显示三维形状的流行渲染算法。栅格化是生成实时">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-02-20T10:15:07.000Z">
+<meta property="article:modified_time" content="2020-02-20T10:15:07.000Z">
+<meta property="article:author" content="Hcat">
+<meta property="article:tag" content="潇淼">
+<meta property="article:tag" content="博客">
+<meta property="article:tag" content="技术">
+<meta property="article:tag" content="程序媛">
+<meta property="article:tag" content="Hcat">
+<meta property="article:tag" content="Blog">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="Hcat&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/about" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Hcat</h5>
+          <a href="mailto:admin@hcat.work" title="admin@hcat.work" class="mail">admin@hcat.work</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/AdminHcat" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/hcat" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://wpa.qq.com/msgrd?v=3&uin=2861878208&site=qq&menu=yes" target="_blank" >
+                <i class="icon icon-lg icon-qq"></i>
+                QQ
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/Links"  >
+                <i class="icon icon-lg icon-link"></i>
+                友情链接
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">关于栅格化</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">关于栅格化</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-02-20T10:15:07.000Z" itemprop="datePublished" class="page-time">
+  2020-02-20
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#综述"><span class="post-toc-number">1.</span> <span class="post-toc-text">综述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基本实现方法"><span class="post-toc-number">2.</span> <span class="post-toc-text">基本实现方法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#变换"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">变换</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#裁剪"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">裁剪</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#扫描变换"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">扫描变换</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#加速技术"><span class="post-toc-number">3.</span> <span class="post-toc-text">加速技术</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#后向剔除"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">后向剔除</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#空间数据结构"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">空间数据结构</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#改进方法"><span class="post-toc-number">4.</span> <span class="post-toc-text">改进方法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#纹理映射"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">纹理映射</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#环境映射"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">环境映射</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#凸凹纹理映射"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">凸凹纹理映射</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#细节层次"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">细节层次</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#阴影"><span class="post-toc-number">4.5.</span> <span class="post-toc-text">阴影</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-关于栅格化"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">关于栅格化</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-02-20 18:15:07" datetime="2020-02-20T10:15:07.000Z"  itemprop="datePublished">2020-02-20</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><strong>栅格化</strong>Grid是将<a href="https://baike.baidu.com/item/向量图形" target="_blank" rel="noopener">向量图形</a>格式表示的图像转换成<a href="https://baike.baidu.com/item/位图" target="_blank" rel="noopener">位图</a>以用于<a href="https://baike.baidu.com/item/显示器" target="_blank" rel="noopener">显示器</a>或者<a href="https://baike.baidu.com/item/打印机" target="_blank" rel="noopener">打印机</a>输出的过程。</p>
+<p>栅（shan）格化，是<a href="https://baike.baidu.com/item/PS/13323" target="_blank" rel="noopener">PS</a>中的一个专业术语，栅格即<a href="https://baike.baidu.com/item/像素/95084" target="_blank" rel="noopener">像素</a>，栅格化即将<a href="https://baike.baidu.com/item/矢量图" target="_blank" rel="noopener">矢量图</a>形转化为位图（栅格图像）。最基础的栅格化算法将多边形表示的三维<a href="https://baike.baidu.com/item/场景渲染/3052119" target="_blank" rel="noopener">场景渲染</a>到二维表面。</p>
+<h2 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h2><p>总体上来说，栅格化这个术语可以用于任何将<a href="https://baike.baidu.com/item/向量图形" target="_blank" rel="noopener">向量图形</a>转换成<a href="https://baike.baidu.com/item/位图" target="_blank" rel="noopener">位图</a>的过程。</p>
+<p>在通常的应用中，这个术语用来表示在计算机上显示三维形状的流行<a href="https://baike.baidu.com/item/渲染" target="_blank" rel="noopener">渲染</a>算法。栅格化是生成实时<a href="https://baike.baidu.com/item/三维计算机图形" target="_blank" rel="noopener">三维计算机图形</a>最流行的算法。实时应用需要立即响应用户输入，并且通常需要至少每秒 24 帧的速率。</p>
+<p>与辐射着色、<a href="https://baike.baidu.com/item/光线跟踪" target="_blank" rel="noopener">光线跟踪</a>等其它渲染技术不同，栅格化的速度非常快，但是由于它不是根据光传输的物理规律进行处理的，所以无法正确模拟许多复杂真实光照环境，只能达到足够欺骗人类眼睛的程度。</p>
+<h2 id="基本实现方法"><a href="#基本实现方法" class="headerlink" title="基本实现方法"></a>基本实现方法</h2><p>最基础的栅格化算法将多边形表示的三维场景渲染到二维表面。多边形由三角形的集合表示，三角形由三维空间中的三个顶点表示。在最简单的实现形式中，栅格化工具将顶点数据映射到观察者显示器上对应的二维坐标点，然后对变换出的二维三角形进行合适的填充。</p>
+<h3 id="变换"><a href="#变换" class="headerlink" title="变换"></a>变换</h3><p>通常使用矩阵运算进行变换，另外也可以用<a href="https://baike.baidu.com/item/四元数" target="_blank" rel="noopener">四元数</a>运算但那不是本文讨论的范围。在三维顶点中添加一个齐次变量成为四维定点然后左乘一个 4 x 4 的变换矩阵，通过这种方法就可以对三维顶点进行变换。主要的变换有平移、缩放、旋转以及投射 [1] 。</p>
+<p><strong>平移</strong>变换是点在三维空间中从一点移动到固定偏移的另外一点的过程，平移可以用下面的矩阵表示：<br>$$<br>\left[\begin{matrix}<br>1&amp;0&amp;0&amp;X\<br>0&amp;1&amp;0&amp;Y\<br>0&amp;0&amp;1&amp;Z\<br>0&amp;0&amp;0&amp;1\<br>\end{matrix}\right]<br>$$<br>X、Y 与 Z 分别是三维空间中的偏移。</p>
+<p><strong>缩放</strong>变换通过在顶点位置上乘以一个标量值实现，这样就将顶点相对于原点的位置进行缩放。缩放变换可以用下面的矩阵表示：<br>$$<br>\left[\begin{matrix}X&amp;0&amp;0&amp;0\0&amp;Y&amp;0&amp;0\0&amp;0&amp;Z&amp;0\0&amp;0&amp;0&amp;1\\end{matrix}\right]<br>$$<br>其中 X、Y 与 Z 是三维坐标中每一维所乘的数值。通过使用不同的 X、Y、Z 值可以实现不对称缩放。</p>
+<p><strong>旋转</strong>变换是绕着一个轴线对每点进行旋转。</p>
+<p>绕 X 轴旋转：<br>$$<br>\left[\begin{matrix}1&amp;0&amp;0&amp;0\0&amp;\cos\theta&amp;-\sin\theta&amp;0\0&amp;\sin\theta&amp;\cos\theta&amp;0\0&amp;0&amp;0&amp;1\\end{matrix}\right]<br>$$<br>绕 Y 轴旋转：<br>$$<br>\left[\begin{matrix}\cos\theta&amp;0&amp;\sin\theta&amp;0\0&amp;1&amp;0&amp;0\-\sin\theta&amp;0&amp;\cos\theta&amp;0\0&amp;0&amp;0&amp;1\\end{matrix}\right]<br>$$<br>绕 Z 轴旋转：<br>$$<br>\left[\begin{matrix}<br>\cos\theta&amp;-\sin\theta&amp;0&amp;0\<br>\sin\theta&amp;\cos\theta&amp;0&amp;0\<br>0&amp;0&amp;1&amp;0\0&amp;0&amp;0&amp;1\<br>\end{matrix}\right]<br>$$<br>其中 θ 表示旋转角度。</p>
+<p>逻辑上一系列的平移、缩放、旋转可以表示绝大多数的变换。通常栅格化系统使用变换栈将输入顶点的数据流变换到指定位置，变换栈是保存矩阵的标准<a href="https://baike.baidu.com/item/堆栈" target="_blank" rel="noopener">堆栈</a>，输入顶点与矩阵栈相乘进行变换。</p>
+<p>为了说明如何使用变换栈，我们假设有一个简单场景中只有一个人的模型。这个人在一个特定位置面向任意一个角度竖直站立，头转向另外一个方向。使用一系列的顶点与模型用来表示这个人物。首先，将一个变换矩阵压到堆栈中将模型移到正确的位置；其次，将缩放矩阵压到堆栈中将模型缩放到正确的尺寸；然后，表示身体的顶点数据流送到栅格化工具中；由于头部面向另外一个方向，将旋转矩阵从堆栈弹出，压入一个绕 Y 轴旋转一个不同角度的旋转矩阵；最后，表示头部的顶点数据流送到栅格化工具。</p>
+<p>在所有点都已经变换到相对于观察者的合适三维空间位置之后，就需要将它们变换到二维空间了。最简单的投影方法<a href="https://baike.baidu.com/item/正投影" target="_blank" rel="noopener">正投影</a>简单地从变换的三维顶点中扔掉 Z 分量。正投影的特点是三维空间中的平行线在二维表示中仍然平行。但是，真实世界中的图像都是透视图像，离观察者较远的点之间的距离看起来要比较近点之间的距离近，这些点都要进行<a href="https://baike.baidu.com/item/透视投影" target="_blank" rel="noopener">透视投影</a>变换 [2] 。</p>
+<p>从概念上来讲就是将透视体转变成正视体。透视体是平截头体，即被截去头部的金字塔体。正视体是一个矩形盒，其中远近两个观察面都与图像平面平行 [3] 。</p>
+<p>透视投影变换可以用下面的矩阵表示：<br>$$<br>\left[\begin{matrix}1&amp;0&amp;0&amp;0\0&amp;1&amp;0&amp;0\0&amp;0&amp;(N+F)/N&amp;-F\0&amp;0&amp;1/N&amp;0\\end{matrix}\right]<br>$$<br>其中 F 与 N 分别是观察面的远近距离。四个结果向量是一个齐次变量不是 1 的向量。对向量进行齐次变换，或者乘以齐次变量的逆，齐次变量变为单位矩阵，这就是最终二维位置的 x 与 y 坐标。</p>
+<h3 id="裁剪"><a href="#裁剪" class="headerlink" title="裁剪"></a>裁剪</h3><p>一旦三角形顶点转换到正确的二维位置之后，这些位置可能位于观察窗口之外，也可能位于屏幕之内。裁剪就是对三角形进行处理以适合显示区域的过程。</p>
+<p>最常用的技术是Sutherland-Hodgeman裁剪算法。在这种方法中，每次测试每个图像平面的四条边，对于每个边测试每个待渲染的点。如果该点位于边界之外，就剔除该点。对于与图像平的面边相交的三角形边，即边的一个顶点位于图像内部一个位于外部，那么就在交叉点插入一个点并且移除外部的点。</p>
+<h3 id="扫描变换"><a href="#扫描变换" class="headerlink" title="扫描变换"></a>扫描变换</h3><p>传统的栅格化过程的最后一步就是填充图像平面中的二维三角形，这个过程就是<strong>扫描变换</strong>。</p>
+<p>第一个需要考虑的问题就是是否需要绘制给定的像素。一个需要渲染的像素必须位于三角形内部、必须未被裁掉，并且必须未被其它像素遮挡。有许多算法可以用于在三角形内进行填充，其中最流行的方法是<strong>扫描线算法</strong>。</p>
+<p>由于很难确定栅格化引擎是否会从前到后绘制所有像素，因此必须要有一些方法来确保离观察者较近的像素不会被较远的像素所覆盖。最为常用的一种方法是深度缓存，深度缓存是一个与图像平面对应的保存每个<a href="https://baike.baidu.com/item/像素深度" target="_blank" rel="noopener">像素深度</a>的二维数组。每个像素进行绘制的时候都要更新深度缓存中的深度值，每个新像素在绘制之前都要检查深度缓存中的深度值，距离观察者较近的像素就会绘制，而距离较远的都被舍弃。</p>
+<p>为了确定像素颜色，需要进行纹理或者浓淡效果计算。纹理图是用于定义三角形显示外观的<a href="https://baike.baidu.com/item/位图" target="_blank" rel="noopener">位图</a>。每个三角形顶点除了位置坐标之外都与纹理以及二维纹理坐标 (u,v) 发生关联。每次渲染三角形中的像素的时候，都必须在纹理中找到对应的纹素，这是根据在屏幕上像素与顶点的距离在与纹理坐标相关联的三角形顶点之间插值完成的。在透视投影中，插值是在根据顶点深度分开的纹理坐标上进行的，这样做就可以避免<strong>透视缩减</strong>（perspective foreshortening）问题。</p>
+<p>在确定像素最终颜色之前，必须根据场景中的所有光源计算像素上的光照。在场景中通常有三种类型的光源。<strong>定向光</strong>是在场景中按照一个固定方向传输并且强度保持不变的光。在现实生活中，由于太阳距离遥远所以在地球上的观察者看来是平行光线并且其衰减微乎其微，所以太阳光可以看作是定向光。<strong>点光源</strong>是从空间中明确位置向所有方向发射光线的光源。在远距离的物体上的入射光线会有衰减。最后一种是<strong>聚光灯</strong>，如同现实生活中的聚光灯一样，它有一个明确的空间位置、方向以及光锥的角度。另外，经常在光照计算完成之后添加一个<strong>环境光</strong>值以补偿光栅化无法正确计算的<a href="https://baike.baidu.com/item/全局照明" target="_blank" rel="noopener">全局照明</a>效果。</p>
+<p>有许多可以用于光栅化的浓淡算法。所有的<a href="https://baike.baidu.com/item/浓淡处理" target="_blank" rel="noopener">浓淡处理</a>算法都必须考虑与光源的距离以及遮蔽物体法向量与光照入射角。最快的算法让三角形中的所有像素使用同样的亮度，但是这种方法无法生成平滑效果的表面。另外也可以单独计算顶点的亮度，然后绘制内部像素的时候对顶点亮度进行插值。速度最慢也最为真实的实现方法是单独计算每点的亮度。常用的浓淡模型有 [Gouraud shading](<a href="https://baike.baidu.com/item/Gouraud" target="_blank" rel="noopener">https://baike.baidu.com/item/Gouraud</a> shading) 和 Phong shading。</p>
+<h2 id="加速技术"><a href="#加速技术" class="headerlink" title="加速技术"></a>加速技术</h2><p>为了在任何栅格化引擎中获得最大的性能，只能往渲染工具中发送最少数量的多边形。人们已经开发出了一些加速技术以剔除无法看到的物体。</p>
+<h3 id="后向剔除"><a href="#后向剔除" class="headerlink" title="后向剔除"></a>后向剔除</h3><p>最简单的剔除多边形的方法就是剔除所有背离观察者的多边形，这就是后向剔除。由于大多数三维物体都是封闭的，所以除非观察者位于物体内部，背离观察者的多边形都会被面向观察者的多边形所遮挡。多边形的方向由它的<strong>旋绕方向</strong>（winding）或者送到渲染工具的顶点顺序所确定。一旦多边形变换到屏幕空间之后，就可以检查它是否位于相反的方向，一旦如此就丢弃这个多边形。当然，后向剔除不适合于简并的不封闭立体。</p>
+<h3 id="空间数据结构"><a href="#空间数据结构" class="headerlink" title="空间数据结构"></a>空间数据结构</h3><p>许多先进的技术使用数据结构提出观察物体之外的物体或者被其它物体遮挡的物体，最为常用的数据结构有二元空间分割、<a href="https://baike.baidu.com/item/八叉树" target="_blank" rel="noopener">八叉树</a>以及单元和入口裁剪。</p>
+<h2 id="改进方法"><a href="#改进方法" class="headerlink" title="改进方法"></a>改进方法</h2><p>尽管基本的栅格化过程已经出现了数十年，许多当今的应用仍然在优化、增加栅格化渲染引擎的应用范围。</p>
+<h3 id="纹理映射"><a href="#纹理映射" class="headerlink" title="纹理映射"></a>纹理映射</h3><p>纹理是在特定的分辨率生成的，但是由于纹理覆盖的表面与观察者之间可能是任意的距离，所以纹理也可能最后图像上有任意的尺寸。因此，屏幕上的一个像素通常并不直接对应于一个<a href="https://baike.baidu.com/item/纹素" target="_blank" rel="noopener">纹素</a>，而是需要使用一些<a href="https://baike.baidu.com/item/纹理滤波" target="_blank" rel="noopener">纹理滤波</a>技术来生成任意距离的清晰图像。有许多在图像质量与计算的复杂性进行不同这种考虑的方法可以完成这项工作。</p>
+<h3 id="环境映射"><a href="#环境映射" class="headerlink" title="环境映射"></a>环境映射</h3><p>环境映射是纹理坐标与<a href="https://baike.baidu.com/item/观察点" target="_blank" rel="noopener">观察点</a>相关的纹理映射形式。例如，其中一个常用的应用程序就是用来模拟镜面反射，我们可以将整个房间内部环境映射到房间内的一个金属杯上，当观察者沿着杯子移动的时候，杯子顶点的纹理坐标也随之变化，这样就得到反射效果。</p>
+<h3 id="凸凹纹理映射"><a href="#凸凹纹理映射" class="headerlink" title="凸凹纹理映射"></a>凸凹纹理映射</h3><p>凸凹纹理映射是改变<a href="https://baike.baidu.com/item/像素深度" target="_blank" rel="noopener">像素深度</a>而不是颜色的另外一种纹理映射形式。尤其是与最新的阴影工具一起使用的时候，凸凹纹理映射使得表面显现出与光照有关的凸凹不平，从而大幅度地提高真实感。</p>
+<h3 id="细节层次"><a href="#细节层次" class="headerlink" title="细节层次"></a>细节层次</h3><p>在许多当今的应用中，任何场景中的多边形数目都是非常大的，但是场景中的观察者只能区分近距物体的细节。细节层次算法根据物体与观察者的距离改变几何图形的复杂性。正对着观察者的物体需要进行非常复杂的渲染，而距离远的物体可以动态地简化，甚至可以完全适用二维 sprite 替代 [4] 。</p>
+<h3 id="阴影"><a href="#阴影" class="headerlink" title="阴影"></a>阴影</h3><p>传统栅格化过程的光照计算没有考虑物体遮挡的因素。<a href="https://baike.baidu.com/item/阴影图" target="_blank" rel="noopener">阴影图</a>与<a href="https://baike.baidu.com/item/阴影体" target="_blank" rel="noopener">阴影体</a>是当今两种生成阴影的普通技术。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-02-20T10:15:07.000Z" itemprop="dateUpdated">2020-02-20 18:15:07</time>
+</span><br>
+
+
+        
+        本文永久地址：<a href="/2020/02/20/%E5%85%B3%E4%BA%8E%E6%A0%85%E6%A0%BC%E5%8C%96/" target="_blank" rel="external">http://blog.hcat.work/2020/02/20/%E5%85%B3%E4%BA%8E%E6%A0%85%E6%A0%BC%E5%8C%96/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://blog.hcat.work">
+            <img src="/img/avatar.jpg" alt="Hcat">
+            Hcat
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.hcat.work/2020/02/20/%E5%85%B3%E4%BA%8E%E6%A0%85%E6%A0%BC%E5%8C%96/&title=《关于栅格化》 — Hcat's Blog&pic=http://blog.hcat.work/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.hcat.work/2020/02/20/%E5%85%B3%E4%BA%8E%E6%A0%85%E6%A0%BC%E5%8C%96/&title=《关于栅格化》 — Hcat's Blog&source=爱折腾的程序媛一枚" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.hcat.work/2020/02/20/%E5%85%B3%E4%BA%8E%E6%A0%85%E6%A0%BC%E5%8C%96/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《关于栅格化》 — Hcat's Blog&url=http://blog.hcat.work/2020/02/20/%E5%85%B3%E4%BA%8E%E6%A0%85%E6%A0%BC%E5%8C%96/&via=http://blog.hcat.work" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.hcat.work/2020/02/20/%E5%85%B3%E4%BA%8E%E6%A0%85%E6%A0%BC%E5%8C%96/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2020/03/12/%E5%BD%93%E6%88%91%E4%BB%AC%E8%B0%88%E8%AE%BARSS%E6%97%B6,%E6%88%91%E4%BB%AC%E8%B0%88%E8%AE%BA%E4%BA%9B%E4%BB%80%E4%B9%88/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">当我们谈论RSS时，我们谈论些什么？</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/11/13/%E6%8B%BD%E5%A7%90%E6%97%A5%E8%AE%B0/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">拽姐日记</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'true' == 'true',
+            verify: 'false' == 'true',
+            appId: "ktwTH4TE0WoUt8BPdoARg7DS-gzGzoHsz",
+            appKey: "OwkIYBfEoRX4jgvJCNPqcziw",
+            avatar: "mm",
+            placeholder: "说点什么",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "8"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        赏枚小鱼干~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Hcat &copy; 2017 - 2020</span>
+            <span>
+                
+                <a href="http://www.beian.miit.gov.cn/" target="_blank">沪ICP备18003829号-2</a><br>
+                
+                Power by <a href="https://github.com/" target="_blank">Github</a> Theme designed by<a href="https://blog.hcat.work/" target="_blank">Hcat</a>
+            </span>
+        </p>
+    </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.hcat.work/2020/02/20/%E5%85%B3%E4%BA%8E%E6%A0%85%E6%A0%BC%E5%8C%96/&title=《关于栅格化》 — Hcat's Blog&pic=http://blog.hcat.work/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.hcat.work/2020/02/20/%E5%85%B3%E4%BA%8E%E6%A0%85%E6%A0%BC%E5%8C%96/&title=《关于栅格化》 — Hcat's Blog&source=爱折腾的程序媛一枚" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.hcat.work/2020/02/20/%E5%85%B3%E4%BA%8E%E6%A0%85%E6%A0%BC%E5%8C%96/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《关于栅格化》 — Hcat's Blog&url=http://blog.hcat.work/2020/02/20/%E5%85%B3%E4%BA%8E%E6%A0%85%E6%A0%BC%E5%8C%96/&via=http://blog.hcat.work" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.hcat.work/2020/02/20/%E5%85%B3%E4%BA%8E%E6%A0%85%E6%A0%BC%E5%8C%96/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrklEQVR42u3aQW7DUAgE0N7/0q3UbRV7BvyTLp5XURUnPEf6UODrK76+f6+/r6/f//eu63uv35987/DCw8PDG4X+6trzkk9LHsf1XS8fHx4eHt4xXp4Mrj8uf2eSSNokgYeHh/ffeMlxn1wJL0kbeHh4eP+flxfBsxK8jQEPDw/vs7z80E+O8ldftmlkHO+14OHh4XU17XAA9qnXb5rv4eHh4ZVHcHLs7g/6vElRx4mHh4d3gJevQ+3bBHlp3jZ8byLHw8PDO8xrbz6XVPJh2M29eHh4eAd4+ah+s2i1WQLYLB/g4eHhPcvLA30qxLZobgv0KLfg4eHhLXibRah2tL8vmtsfAw8PD+8cbzNeasvrNj3M8FGvBQ8PD2/E27cGZmlg1iyukxkeHh7eMd6sbZoH2rYkViOu9ovx8PDwJmdpMb6arRrkvJxUrHzh4eHhPcpL/r2fbSJs/p73m29ixsPDwzvAy4NOWrptRmpXE+r+NB4eHt7beXm53I7NWnxeTOPh4eGd5rWDpbwgPtc4LuLEw8PDO8DbNExnBXdevidJoi6p8fDw8B7itcf6bHDVgvMlg5uUgIeHh/cor11Cbb+mXT7IWw/Rz4OHh4d3jPfUqGk28t8vLryMGQ8PD+8ALx/kt4x2ZNWO3PKhHR4eHt453nWIsxK8fRyzxm67J4CHh4e35yVla/7Rm6bDLFXciPDw8PCO8Z5tPbSM/DyvUwseHh7eo7zv8sor1bzNsUkzN4kKDw8P7wDvXGOiXSPImx15excPDw/vHO+p5adNqd0mmCIx4OHh4R3j5eP//VA/fwSzZkQxAMPDw8N7Oy9pFrQBzQZmLy14eHh4H+XNRmVJ6LPCOnqseHh4eMd4+4M4QW7Ws4ZLBnh4eHgHeO0ArE0SbVj7dS48PDy8Y7wfU367YLf7BVwAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+lazyScripts.push('//s95.cnzz.com/z_stat.php?id=1276430764&web_id=1276430764')
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '表丢下人家！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦惹!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+	<script type="text/javascript" src="//abbw.gitee.io/asset/js/click_love.js"></script>
+	<div id="cc-myssl-id" style="position: fixed;right: 0;bottom: 0;width: 65px;height: 65px;z-index: 99;">
+    <a href="https://myssl.com/blog.hcat.work?from=mysslid" target="_blank" rel="noopener"><img src="https://static.myssl.com/res/images/myssl-id.png" alt="" style="width:100%;height:100%"></a>
+	</div>
+	<audio src="http://music.163.com/song/media/outer/url?id=1406633327.mp3" autoplay="autoplay"></audio>
+</body>
+</html>
